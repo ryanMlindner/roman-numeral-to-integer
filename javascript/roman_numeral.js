@@ -1,47 +1,43 @@
 function romanNumeral(string) {
   let formatString = string.toUpperCase();
-  valSet = ['M','D','C','L','X','V','I'];
-  // type your code here
-  console.log("wtf")
+  //quick and dirty workaround for using JS in functionality, prop array instead of primitives
+  const valSet = {M:'',D:'',C:'',L:'',X:'',V:'',I:''};
   function validate() {
-    console.log("never got here")
     //test 2 fail states
     //subtraction error will be handled in the code
     for (let index = 0; index < formatString.length; index++) {
       if(formatString[index] === formatString[index+1] === 
         formatString[index+2] === formatString[index+3]) {
-        console.log("hmmm")
+        console.log("fail 1");
         return false;
       }
       if(!(formatString[index] in valSet)) {
-        console.log(formatString[index])
-        console.log("uh")
+        console.log("fail 2");
         return false;
       }
     }
-    console.log("truthy")
     return true;
   }
-  if (validate) {
+
+  if (validate()) {
     let sum = 0;
     for (index = 0; index < formatString.length; index++) {
       value = formatString[index];
       nextValue = formatString[index + 1];
       checkSubtract = value + nextValue;
-      console.log(checkSubtract)
       if (value === 'M') {sum += 1000;}
       else if (checkSubtract === 'CM') {sum += 900;
-        index++}
+        index++;}
       else if (checkSubtract === 'CD') {sum += 400;
-        index++}
+        index++;}
       else if (checkSubtract === 'XC') {sum += 90;
-        index++}
+        index++;}
       else if (checkSubtract === 'XL') {sum += 40;
-        index++}
+        index++;}
       else if (checkSubtract === 'IX') {sum += 9;
-        index++}
+        index++;}
       else if (checkSubtract === 'IV') {sum += 4;
-        index++}
+        index++;}
       else if (value === 'D') {sum += 500;}
       else if (value === 'C') {sum += 100;}
       else if (value === 'L') {sum += 50;}
@@ -51,11 +47,10 @@ function romanNumeral(string) {
     }
     return sum;
   }
-
+  else return "Invalid String";
 }
 
 if (require.main === module) {
-  // add your own tests in here
   console.log("Expecting: 1");
   console.log(romanNumeral('I'));
 
@@ -68,6 +63,11 @@ if (require.main === module) {
 
   console.log("Expecting: 402");
   console.log(romanNumeral('CDII'));
+
+  console.log("");
+
+  console.log("Expecting: Invalid String");
+  console.log(romanNumeral('ZZZ'));
 }
 
 module.exports = romanNumeral;

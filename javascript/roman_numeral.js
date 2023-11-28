@@ -1,5 +1,57 @@
 function romanNumeral(string) {
+  let formatString = string.toUpperCase();
+  valSet = ['M','D','C','L','X','V','I'];
   // type your code here
+  console.log("wtf")
+  function validate() {
+    console.log("never got here")
+    //test 2 fail states
+    //subtraction error will be handled in the code
+    for (let index = 0; index < formatString.length; index++) {
+      if(formatString[index] === formatString[index+1] === 
+        formatString[index+2] === formatString[index+3]) {
+        console.log("hmmm")
+        return false;
+      }
+      if(!(formatString[index] in valSet)) {
+        console.log(formatString[index])
+        console.log("uh")
+        return false;
+      }
+    }
+    console.log("truthy")
+    return true;
+  }
+  if (validate) {
+    let sum = 0;
+    for (index = 0; index < formatString.length; index++) {
+      value = formatString[index];
+      nextValue = formatString[index + 1];
+      checkSubtract = value + nextValue;
+      console.log(checkSubtract)
+      if (value === 'M') {sum += 1000;}
+      else if (checkSubtract === 'CM') {sum += 900;
+        index++}
+      else if (checkSubtract === 'CD') {sum += 400;
+        index++}
+      else if (checkSubtract === 'XC') {sum += 90;
+        index++}
+      else if (checkSubtract === 'XL') {sum += 40;
+        index++}
+      else if (checkSubtract === 'IX') {sum += 9;
+        index++}
+      else if (checkSubtract === 'IV') {sum += 4;
+        index++}
+      else if (value === 'D') {sum += 500;}
+      else if (value === 'C') {sum += 100;}
+      else if (value === 'L') {sum += 50;}
+      else if (value === 'X') {sum += 10;}
+      else if (value === 'V') {sum += 5;}
+      else if (value === 'I') {sum += 1;}
+    }
+    return sum;
+  }
+
 }
 
 if (require.main === module) {
@@ -25,7 +77,7 @@ module.exports = romanNumeral;
  * given a string, check for valid syntax
  * -letters are not repeated more than 3 times in a row
  * -letters included are MDCLXVI
- * -letters are descending value or the following combinations - "CM" "CD" "XC" "IX" "IV"
+ * -letters are descending value or the following combinations - "CM" "CD" "XC" "XL" "IX" "IV"
  * if valid, begin adding values
  * letters are added unless a bigger number is encountered directly after a letter, in which case
  * take the value of the bigger number minus the smaller, and continue as normal after
